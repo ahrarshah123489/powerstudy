@@ -1,0 +1,165 @@
+body {
+  background: #0e0f1b;
+  color: white;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 20px;
+}
+
+h1 {
+  color: #ffc107;
+  text-align: center;
+}
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.card {
+  background: #1e2036;
+  border-radius: 10px;
+  padding: 1rem;
+  width: 250px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.card:hover {
+  background: #2a2e4b;
+  transform: translateY(-5px);
+}
+
+.card img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.card-title {
+  text-align: center;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.loader {
+  margin: 2rem auto;
+  border: 6px solid #333;
+  border-top: 6px solid #ffc107;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.back-btn {
+  margin: 10px 0;
+  display: block;
+  text-align: left;
+  color: #ffc107;
+  cursor: pointer;
+}
+
+input[type="text"] {
+  padding: 10px;
+  width: 80%;
+  margin: 10px auto;
+  display: block;
+  border-radius: 5px;
+  border: none;
+}
+
+.today-classes-wrapper {
+  margin: 10px 0;
+}
+
+.today-classes-title {
+  color: #ffc107;
+  font-size: 1.2rem;
+  margin: 0 0 10px 10px;
+}
+
+.today-classes-container {
+  overflow-x: auto;
+  white-space: nowrap;
+  padding: 10px;
+  background: #1a1c2d;
+  border-radius: 10px;
+}
+
+.today-card {
+  display: inline-block;
+  background: #26294d;
+  margin-right: 10px;
+  padding: 10px;
+  border-radius: 8px;
+  width: 220px;
+  vertical-align: top;
+  cursor: pointer;
+}
+
+.today-card-title {
+  font-weight: bold;
+  margin-bottom: 5px;
+  white-space: normal;
+}
+
+.lecture-tabs {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.lecture-tabs button {
+  background: #ffc107;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.lecture-tabs button.active {
+  background: #e0a800;
+  color: white;
+}
+
+#lectureSection button {
+  background: #ffc107;
+  border: none;
+  margin: 0 5px;
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#lectureSection button.active {
+  background: #e0a800;
+  color: white;
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  color: #ffc107;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  z-index: 9999;
+  display: none;
+}
