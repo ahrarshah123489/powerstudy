@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>PW THOR CLONE</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="overlay" class="overlay">Loading player...</div>
+  <h1>PW THOR Batches</h1>
+  <input type="text" id="searchInput" placeholder="Search batch by name..." />
+  <div class="loader" id="loader" style="display: none;"></div>
+  <div class="grid" id="main"></div>
+  <div class="back-btn" id="backBtn" style="display:none;">← Back</div>
+  <div class="today-classes-wrapper" id="todayWrapper" style="display: none;">
+    <div class="today-classes-title">📅 Today Classes</div>
+    <div class="today-classes-container" id="todayClasses"></div>
+  </div>
+  <div class="grid" id="subjects" style="display: none;"></div>
+  <div class="grid" id="chapters" style="display: none;"></div>
+  <div id="lectureSection" style="display:none;">
+    <div class="lecture-tabs">
+      <button id="tab-lectures" onclick="switchLectureTab('lectures')">Lecture</button>
+      <button id="tab-notes" onclick="switchLectureTab('notes')">Notes</button>
+      <button id="tab-dppnotes" onclick="switchLectureTab('dppnotes')">DPPs</button>
+      <button id="tab-dpplecture" onclick="switchLectureTab('dpplecture')">DPP Lecture</button>
+    </div>
+    <div class="grid" id="lectureContent"></div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
