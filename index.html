@@ -1,33 +1,376 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>PW THOR CLONE</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PW Courses</title>
+    <meta name="description" content="Explore Physics Wallah courses and batches">
+    <!-- Lucide Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lucide-static@0.258.0/font/lucide.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="web-app.css">
+    <script src="tg-popup.js"></script>
+            <!-- Disable devtool -->
+    <!-- <script disable-devtool-auto="true" src="https://cdn.jsdelivr.net/npm/disable-devtool" clear-log="true" disable-select="true" disable-copy="true" disable-cut="true" disable-paste="false"></script> -->
+  
+  <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "r9hllu2zmz");
+</script>
 </head>
-<body>
-  <div id="overlay" class="overlay">Loading player...</div>
-  <h1>PW THOR Batches</h1>
-  <input type="text" id="searchInput" placeholder="Search batch by name..." />
-  <div class="loader" id="loader" style="display: none;"></div>
-  <div class="grid" id="main"></div>
-  <div class="back-btn" id="backBtn" style="display:none;">← Back</div>
-  <div class="today-classes-wrapper" id="todayWrapper" style="display: none;">
-    <div class="today-classes-title">📅 Today Classes</div>
-    <div class="today-classes-container" id="todayClasses"></div>
-  </div>
-  <div class="grid" id="subjects" style="display: none;"></div>
-  <div class="grid" id="chapters" style="display: none;"></div>
-  <div id="lectureSection" style="display:none;">
-    <div class="lecture-tabs">
-      <button id="tab-lectures" onclick="switchLectureTab('lectures')">Lecture</button>
-      <button id="tab-notes" onclick="switchLectureTab('notes')">Notes</button>
-      <button id="tab-dppnotes" onclick="switchLectureTab('dppnotes')">DPPs</button>
-      <button id="tab-dpplecture" onclick="switchLectureTab('dpplecture')">DPP Lecture</button>
+<body class="dark-mode">
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="container">
+                <div class="header-content">
+                    <div class="logo">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCg5id4_FFO1s3IBkcNdWmvE-tkQ_RaZcFiA&s" alt="Physics Wallah Logo" height="50" width="50">
+                    </div>
+                    <div class="header-actions">
+                        <a href="#khazana" class="icon-btn" id="khazana-btn" aria-label="Khazana">
+                            <i class="fa-solid fa-box-archive"></i>
+                        </a>
+                        <button id="theme-toggle" class="icon-btn" aria-label="Toggle dark mode">
+                            <i class="fa-solid fa-moon"></i>
+                        </button>
+                        <a href="#favorites" class="icon-btn" aria-label="Favorites">
+                            <i class="fa-solid fa-heart"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <div class="container">
+                <div id="app-view">
+                    <!-- Content will be loaded here dynamically -->
+                    <div class="page-loading">
+                        <div class="loader"></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="app-footer">
+            <center>    <img src="https://hits.technfetch.in/badge.php?url=https%3A%2F%2Fstreamfiles.eu.org&label=TODAY%2FTOTAL&style=square&labelColor=ff0000&countColor=303130&showToday=true" alt="TODAY/TOTAL counter" style="display: none;"></center>
+            <div class="container">
+                <p>&copy; 2024-2025 StudyRays. All Rights Reserved.</p>
+            </div>
+        </footer>
     </div>
-    <div class="grid" id="lectureContent"></div>
-  </div>
-  <script src="script.js"></script>
+
+    <!-- Templates -->
+    <template id="batches-template">
+        <div class="batches-page">
+            <!-- Quick Navigation -->
+            <div class="quick-nav">
+                <button class="quick-nav-btn active">
+                    <i class="fa-solid fa-house"></i>
+                    <span>PW App</span>
+                </button>
+                <a href="khazana/index.html" class="quick-nav-btn">
+                    <i class="fa-solid fa-box-archive"></i>
+                    <span>Khazana</span>
+                </a>
+                <a href="" target="_blank" class="quick-nav-btn">
+                    <i class="fa-brands fa-telegram"></i>
+                    <span>Telegram</span>
+                </a>
+               <a href="https://cutt.ly/9rfmgP9L" download
+               style="display: inline-block; padding: 12px 24px; background-color: #4CAF50; color: white; text-decoration: none; font-size: 16px; font-weight: bold; border-radius: 8px; transition: background-color 0.3s ease; font-family: sans-serif;">
+               <i class="fa-brands fa-android"></i> Download StudyRays Apk
+              </a>
+            </div>
+            
+            <div class="search-container">
+                <div class="search-input-wrapper">
+                    <i class="fa-solid fa-search search-icon"></i>
+                    <input type="text" id="search-input" placeholder="Search batches..." autocomplete="off">
+                    <button id="clear-search" class="clear-btn"><i class="fa-solid fa-times"></i></button>
+                </div>
+                <div id="search-suggestions" class="search-suggestions"></div>
+            </div>
+
+            <div class="batch-filter">
+                <button class="filter-btn active" data-filter="all">All Batches</button>
+                <button class="filter-btn" data-filter="new">New Batches</button>
+                <button class="filter-btn" data-filter="old">Old Batches</button>
+                <a href="#favorites" class="filter-btn" data-filter="favorites">
+                    <i class="fa-solid fa-heart"></i> Favorites
+                </a>
+            </div>
+
+            <div class="batches-container" id="batches-grid">
+                <!-- Batch cards will be loaded here -->
+                <div class="skeleton-container">
+                    <!-- Skeleton loaders -->
+                </div>
+            </div>
+
+            <div class="load-more-container">
+                <button id="load-more" class="load-more-btn">Load More</button>
+            </div>
+        </div>
+    </template>
+
+    <!-- Batch Details Template -->
+    <template id="batch-details-template">
+        <div class="batch-details-page">
+            <div class="back-button">
+                <a href="#batches" class="back-link">
+                    <i class="fa-solid fa-arrow-left"></i> Back to Batches
+                </a>
+            </div>
+            
+            <!-- Quick Navigation -->
+            <div class="quick-nav">
+                <button class="quick-nav-btn active">
+                    <i class="fa-solid fa-house"></i>
+                    <span>PW App</span>
+                </button>
+                <a href="khazana/index.html" class="quick-nav-btn">
+                    <i class="fa-solid fa-box-archive"></i>
+                    <span>Khazana</span>
+                </a>
+                
+                <a href="" target="_blank" class="quick-nav-btn">
+                    <i class="fa-brands fa-telegram"></i>
+                    <span>Telegram</span>
+                </a>
+            </div>
+            
+            <div class="batch-header">
+                <div class="batch-header-content">
+                    <div class="batch-image skeleton-bg"></div>
+                    <div class="batch-info">
+                        <h1 class="batch-title skeleton-text"></h1>
+                        <p class="batch-subtitle skeleton-text"></p>
+                        <div class="batch-meta skeleton-text"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Today's Schedule Section -->
+            <div class="schedule-card">
+                <div class="schedule-header">
+                    <h2 class="schedule-title">
+                        <i class="fa-solid fa-calendar-day"></i> Today's Schedule
+                    </h2>
+                    <button class="view-all-btn">View All</button>
+                </div>
+                <div class="schedule-container" id="schedule-container">
+                    <!-- Schedule items will be loaded here -->
+                    <div class="schedule-item skeleton-card">
+                        <div class="schedule-item-header">
+                            <div class="schedule-subject skeleton-text" style="width: 40%;"></div>
+                            <div class="schedule-status skeleton-text" style="width: 20%;"></div>
+                        </div>
+                        <div class="schedule-topic skeleton-text" style="width: 90%;"></div>
+                        <div class="schedule-topic skeleton-text" style="width: 60%;"></div>
+                        <div class="schedule-time skeleton-text" style="width: 50%;"></div>
+                        <div class="schedule-tags">
+                            <div class="schedule-tag skeleton-text" style="width: 30%;"></div>
+                            <div class="schedule-tag skeleton-text" style="width: 30%;"></div>
+                        </div>
+                    </div>
+                    <div class="schedule-item skeleton-card">
+                        <div class="schedule-item-header">
+                            <div class="schedule-subject skeleton-text" style="width: 40%;"></div>
+                            <div class="schedule-status skeleton-text" style="width: 20%;"></div>
+                        </div>
+                        <div class="schedule-topic skeleton-text" style="width: 90%;"></div>
+                        <div class="schedule-topic skeleton-text" style="width: 60%;"></div>
+                        <div class="schedule-time skeleton-text" style="width: 50%;"></div>
+                        <div class="schedule-tags">
+                            <div class="schedule-tag skeleton-text" style="width: 30%;"></div>
+                            <div class="schedule-tag skeleton-text" style="width: 30%;"></div>
+                        </div>
+                    </div>
+                    <div class="schedule-item skeleton-card">
+                        <div class="schedule-item-header">
+                            <div class="schedule-subject skeleton-text" style="width: 40%;"></div>
+                            <div class="schedule-status skeleton-text" style="width: 20%;"></div>
+                        </div>
+                        <div class="schedule-topic skeleton-text" style="width: 90%;"></div>
+                        <div class="schedule-topic skeleton-text" style="width: 60%;"></div>
+                        <div class="schedule-time skeleton-text" style="width: 50%;"></div>
+                        <div class="schedule-tags">
+                            <div class="schedule-tag skeleton-text" style="width: 30%;"></div>
+                            <div class="schedule-tag skeleton-text" style="width: 30%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="batch-tabs">
+                <button class="tab-btn active" data-tab="subjects">Subjects</button>
+                <button class="tab-btn" data-tab="announcements">Announcements</button>
+            </div>
+
+            <div class="tab-content">
+                <div id="subjects-tab" class="tab-pane active">
+                    <div class="subjects-grid">
+                        <!-- Subject cards will be loaded here -->
+                    </div>
+                </div>
+                <div id="announcements-tab" class="tab-pane">
+                    <div class="announcements-list">
+                        <!-- Announcements will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <!-- Subject Details Template -->
+    <template id="subject-details-template">
+        <div class="subject-details-page">
+            <div class="back-button">
+                <a href="#" class="back-link" id="back-to-batch">
+                    <i class="fa-solid fa-arrow-left"></i> Back to Batch
+                </a>
+            </div>
+            
+            <!-- Quick Navigation -->
+            <div class="quick-nav">
+                <button class="quick-nav-btn active">
+                    <i class="fa-solid fa-house"></i>
+                    <span>PW App</span>
+                </button>
+                <a href="khazana/index.html" class="quick-nav-btn">
+                    <i class="fa-solid fa-box-archive"></i>
+                    <span>Khazana</span>
+                </a>
+                <a href="" target="_blank" class="quick-nav-btn">
+                    <i class="fa-brands fa-telegram"></i>
+                    <span>Telegram</span>
+                </a>
+            </div>
+            
+            <h1 class="subject-title skeleton-text"></h1>
+            
+            <div class="topics-grid">
+                <!-- Topic cards will be loaded here -->
+            </div>
+        </div>
+    </template>
+
+    <!-- Contents Template -->
+    <template id="contents-template">
+        <div class="contents-page">
+            <div class="back-button">
+                <a href="#" class="back-link" id="back-to-subject">
+                    <i class="fa-solid fa-arrow-left"></i> Back to Subject
+                </a>
+            </div>
+            
+            <!-- Quick Navigation -->
+            <div class="quick-nav">
+                <button class="quick-nav-btn active">
+                    <i class="fa-solid fa-house"></i>
+                    <span>PW App</span>
+                </button>
+                <a href="khazana/index.html" class="quick-nav-btn">
+                    <i class="fa-solid fa-box-archive"></i>
+                    <span>Khazana</span>
+                </a>
+                <a href="" target="_blank" class="quick-nav-btn">
+                    <i class="fa-brands fa-telegram"></i>
+                    <span>Telegram</span>
+                </a>
+            </div>
+            
+            <h1 class="topic-title skeleton-text"></h1>
+            
+            <div class="content-tabs">
+                <button class="tab-btn active" data-tab="lectures">Lectures</button>
+                <button class="tab-btn" data-tab="notes">Notes</button>
+                <button class="tab-btn" data-tab="dpp">DPP PDF</button>
+                <button class="tab-btn" data-tab="solution">Solutions</button>
+            </div>
+            
+            <div class="tab-content">
+                <div id="lectures-tab" class="tab-pane active">
+                    <div class="lectures-grid content-grid">
+                        <!-- Lecture cards will be loaded here -->
+                    </div>
+                </div>
+                <div id="notes-tab" class="tab-pane">
+                    <div class="notes-grid content-grid">
+                        <!-- Notes cards will be loaded here -->
+                    </div>
+                </div>
+                <div id="dpp-tab" class="tab-pane">
+                    <div class="dpp-grid content-grid">
+                        <!-- DPP cards will be loaded here -->
+                    </div>
+                </div>
+                <div id="solution-tab" class="tab-pane">
+                    <div class="solutions-grid content-grid">
+                        <!-- Solution cards will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="batch-card-template">
+        <div class="batch-card">
+            <div class="batch-image skeleton-bg">
+                <img src="" alt="" class="lazy-image">
+                <button class="favorite-btn">
+                    <i class="fa-regular fa-heart"></i>
+                </button>
+            </div>
+            <div class="batch-content">
+                <div class="batch-tags">
+                    <span class="batch-tag language-tag skeleton-text"></span>
+                    <span class="batch-tag exam-tag skeleton-text"></span>
+                </div>
+                <h3 class="batch-title skeleton-text"></h3>
+                <p class="batch-subtitle skeleton-text"></p>
+                <div class="batch-footer">
+                    <span class="batch-date skeleton-text"></span>
+                    <a href="#" class="study-btn skeleton-btn">Let's Study</a>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <!-- Video Player Template -->
+    <template id="video-player-template">
+        <div class="video-player-container">
+            <div class="video-player-header">
+                <button class="close-video">
+                    <i class="fa-solid fa-times"></i>
+                </button>
+                <h2 class="video-title"></h2>
+            </div>
+            <div class="video-wrapper">
+                <video id="content-video" controls class="video-player">
+                    <source src="" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        </div>
+    </template>
+
+    <!-- Toast Container -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- Scripts -->
+    <script src="web-apps.js"></script>
+    <script src="khazana-integration.js"></script>
+    
 </body>
-</html>
+</html> 
