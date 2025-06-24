@@ -2,375 +2,199 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PW Courses</title>
-    <meta name="description" content="Explore Physics Wallah courses and batches">
-    <!-- Lucide Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lucide-static@0.258.0/font/lucide.min.css">
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="web-app.css">
-    <script src="tg-popup.js"></script>
-            <!-- Disable devtool -->
-    <!-- <script disable-devtool-auto="true" src="https://cdn.jsdelivr.net/npm/disable-devtool" clear-log="true" disable-select="true" disable-copy="true" disable-cut="true" disable-paste="false"></script> -->
-  
-  <script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "r9hllu2zmz");
-</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Generate Key</title>
+  <style>
+    /* Your existing styles remain unchanged */
+  body, html {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      height: 100vh;
+      font-family: Arial, sans-serif;
+      background-color: black;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      z-index: 1;
+      background-color: rgba(255, 255, 255, 0.6);
+      padding: 30px;
+      border-radius: 10px;
+      text-align: center;
+      position: relative;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    h2 {
+      color: #333;
+    }
+
+    p {
+      color: #666;
+    }
+
+    #generateKey {
+      background-color: #448EE4;
+      color: white;
+      border: none;
+      padding: 15px 30px;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    #generateKey:hover {
+      background-color: #357ac9;
+    }
+
+    .loading {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #666;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+  </style>
 </head>
-<body class="dark-mode">
-    <div class="app-container">
-        <!-- Header -->
-        <header class="app-header">
-            <div class="container">
-                <div class="header-content">
-                    <div class="logo">
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCg5id4_FFO1s3IBkcNdWmvE-tkQ_RaZcFiA&s" alt="Physics Wallah Logo" height="50" width="50">
-                    </div>
-                    <div class="header-actions">
-                        <a href="#khazana" class="icon-btn" id="khazana-btn" aria-label="Khazana">
-                            <i class="fa-solid fa-box-archive"></i>
-                        </a>
-                        <button id="theme-toggle" class="icon-btn" aria-label="Toggle dark mode">
-                            <i class="fa-solid fa-moon"></i>
-                        </button>
-                        <a href="#favorites" class="icon-btn" aria-label="Favorites">
-                            <i class="fa-solid fa-heart"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </header>
+<body>
+  <canvas id="bgCanvas"></canvas> <!-- 3D animated background canvas -->
+  <div class="container">
+    <h2>Get Access to pw thor batches</h2>
+    <p>Click the button below to generate your access key.</p>
+    <button id="generateKey">Generate Key</button>
+    <p class="loading" id="loadingMessage" style="display: none;">Generating URL, please wait...</p>
+  </div>
 
-        <!-- Main Content Area -->
-        <main class="main-content">
-            <div class="container">
-                <div id="app-view">
-                    <!-- Content will be loaded here dynamically -->
-                    <div class="page-loading">
-                        <div class="loader"></div>
-                    </div>
-                </div>
-            </div>
-        </main>
+  <script>
+    document.getElementById('generateKey').addEventListener('click', function () {
+    const destinationUrl = '/login-success.html';
+    const alias = 'customAlias';
 
-        <!-- Footer -->
-        <footer class="app-footer">
-            <center>    <img src="https://hits.technfetch.in/badge.php?url=https%3A%2F%2Fstreamfiles.eu.org&label=TODAY%2FTOTAL&style=square&labelColor=ff0000&countColor=303130&showToday=true" alt="TODAY/TOTAL counter" style="display: none;"></center>
-            <div class="container">
-                <p>&copy; 2024-2025 StudyRays. All Rights Reserved.</p>
-            </div>
-        </footer>
-    </div>
+    document.getElementById('loadingMessage').style.display = 'block';
 
-    <!-- Templates -->
-    <template id="batches-template">
-        <div class="batches-page">
-            <!-- Quick Navigation -->
-            <div class="quick-nav">
-                <button class="quick-nav-btn active">
-                    <i class="fa-solid fa-house"></i>
-                    <span>PW App</span>
-                </button>
-                <a href="khazana/index.html" class="quick-nav-btn">
-                    <i class="fa-solid fa-box-archive"></i>
-                    <span>Khazana</span>
-                </a>
-                <a href="" target="_blank" class="quick-nav-btn">
-                    <i class="fa-brands fa-telegram"></i>
-                    <span>Telegram</span>
-                </a>
-               <a href="https://cutt.ly/9rfmgP9L" download
-               style="display: inline-block; padding: 12px 24px; background-color: #4CAF50; color: white; text-decoration: none; font-size: 16px; font-weight: bold; border-radius: 8px; transition: background-color 0.3s ease; font-family: sans-serif;">
-               <i class="fa-brands fa-android"></i> Download StudyRays Apk
-              </a>
-            </div>
-            
-            <div class="search-container">
-                <div class="search-input-wrapper">
-                    <i class="fa-solid fa-search search-icon"></i>
-                    <input type="text" id="search-input" placeholder="Search batches..." autocomplete="off">
-                    <button id="clear-search" class="clear-btn"><i class="fa-solid fa-times"></i></button>
-                </div>
-                <div id="search-suggestions" class="search-suggestions"></div>
-            </div>
+    const data = { destinationUrl, alias };
 
-            <div class="batch-filter">
-                <button class="filter-btn active" data-filter="all">All Batches</button>
-                <button class="filter-btn" data-filter="new">New Batches</button>
-                <button class="filter-btn" data-filter="old">Old Batches</button>
-                <a href="#favorites" class="filter-btn" data-filter="favorites">
-                    <i class="fa-solid fa-heart"></i> Favorites
-                </a>
-            </div>
+    fetch('/generate-url.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Response:', data);
+        if (data.shortenedUrl) {
+            // Set a 10-minute temporary cookie indicating key generation
+          const now = new Date();
+          const tempExpirationTime = now.getTime() + 10 * 60 * 1000; // 10 minutes temporary cookie
+          document.cookie = "keyGenerated=true; expires=" + new Date(tempExpirationTime).toUTCString() + "; path=/";
 
-            <div class="batches-container" id="batches-grid">
-                <!-- Batch cards will be loaded here -->
-                <div class="skeleton-container">
-                    <!-- Skeleton loaders -->
-                </div>
-            </div>
+          // Redirect to shortened URL
+            window.location.href = data.shortenedUrl;
+        } else {
+            alert('Error in generating URL: ' + (data.error || 'Unknown error'));
+        }
+    })
+    .catch(error => {
+        console.error('Fetch Error:', error);
+        alert('URL generate karne me problem aayi: ' + error.message);
+    })
+    .finally(() => {
+        document.getElementById('loadingMessage').style.display = 'none';
+    });
+});
+  </script>
+  <!-- Advanced Three.js animation with optimized pattern and book animation -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script>
+    const canvas = document.getElementById('bgCanvas');
+    const renderer = new THREE.WebGLRenderer({ canvas });
 
-            <div class="load-more-container">
-                <button id="load-more" class="load-more-btn">Load More</button>
-            </div>
-        </div>
-    </template>
+    // Scene and camera setup
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    camera.position.z = 100;
 
-    <!-- Batch Details Template -->
-    <template id="batch-details-template">
-        <div class="batch-details-page">
-            <div class="back-button">
-                <a href="#batches" class="back-link">
-                    <i class="fa-solid fa-arrow-left"></i> Back to Batches
-                </a>
-            </div>
-            
-            <!-- Quick Navigation -->
-            <div class="quick-nav">
-                <button class="quick-nav-btn active">
-                    <i class="fa-solid fa-house"></i>
-                    <span>PW App</span>
-                </button>
-                <a href="khazana/index.html" class="quick-nav-btn">
-                    <i class="fa-solid fa-box-archive"></i>
-                    <span>Khazana</span>
-                </a>
-                
-                <a href="" target="_blank" class="quick-nav-btn">
-                    <i class="fa-brands fa-telegram"></i>
-                    <span>Telegram</span>
-                </a>
-            </div>
-            
-            <div class="batch-header">
-                <div class="batch-header-content">
-                    <div class="batch-image skeleton-bg"></div>
-                    <div class="batch-info">
-                        <h1 class="batch-title skeleton-text"></h1>
-                        <p class="batch-subtitle skeleton-text"></p>
-                        <div class="batch-meta skeleton-text"></div>
-                    </div>
-                </div>
-            </div>
+    // Lighting for realism
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+    const pointLight = new THREE.PointLight(0xffffff, 1);
+    pointLight.position.set(50, 50, 50);
+    scene.add(ambientLight, pointLight);
 
-            <!-- Today's Schedule Section -->
-            <div class="schedule-card">
-                <div class="schedule-header">
-                    <h2 class="schedule-title">
-                        <i class="fa-solid fa-calendar-day"></i> Today's Schedule
-                    </h2>
-                    <button class="view-all-btn">View All</button>
-                </div>
-                <div class="schedule-container" id="schedule-container">
-                    <!-- Schedule items will be loaded here -->
-                    <div class="schedule-item skeleton-card">
-                        <div class="schedule-item-header">
-                            <div class="schedule-subject skeleton-text" style="width: 40%;"></div>
-                            <div class="schedule-status skeleton-text" style="width: 20%;"></div>
-                        </div>
-                        <div class="schedule-topic skeleton-text" style="width: 90%;"></div>
-                        <div class="schedule-topic skeleton-text" style="width: 60%;"></div>
-                        <div class="schedule-time skeleton-text" style="width: 50%;"></div>
-                        <div class="schedule-tags">
-                            <div class="schedule-tag skeleton-text" style="width: 30%;"></div>
-                            <div class="schedule-tag skeleton-text" style="width: 30%;"></div>
-                        </div>
-                    </div>
-                    <div class="schedule-item skeleton-card">
-                        <div class="schedule-item-header">
-                            <div class="schedule-subject skeleton-text" style="width: 40%;"></div>
-                            <div class="schedule-status skeleton-text" style="width: 20%;"></div>
-                        </div>
-                        <div class="schedule-topic skeleton-text" style="width: 90%;"></div>
-                        <div class="schedule-topic skeleton-text" style="width: 60%;"></div>
-                        <div class="schedule-time skeleton-text" style="width: 50%;"></div>
-                        <div class="schedule-tags">
-                            <div class="schedule-tag skeleton-text" style="width: 30%;"></div>
-                            <div class="schedule-tag skeleton-text" style="width: 30%;"></div>
-                        </div>
-                    </div>
-                    <div class="schedule-item skeleton-card">
-                        <div class="schedule-item-header">
-                            <div class="schedule-subject skeleton-text" style="width: 40%;"></div>
-                            <div class="schedule-status skeleton-text" style="width: 20%;"></div>
-                        </div>
-                        <div class="schedule-topic skeleton-text" style="width: 90%;"></div>
-                        <div class="schedule-topic skeleton-text" style="width: 60%;"></div>
-                        <div class="schedule-time skeleton-text" style="width: 50%;"></div>
-                        <div class="schedule-tags">
-                            <div class="schedule-tag skeleton-text" style="width: 30%;"></div>
-                            <div class="schedule-tag skeleton-text" style="width: 30%;"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    // Open book 3D model
+    const loader = new THREE.TextureLoader();
+    const bookTexture = loader.load('https://example.com/book_texture.jpg');  // Replace with actual texture
 
-            <div class="batch-tabs">
-                <button class="tab-btn active" data-tab="subjects">Subjects</button>
-                <button class="tab-btn" data-tab="announcements">Announcements</button>
-            </div>
+    const bookGeometry = new THREE.BoxGeometry(40, 30, 2);
+    const bookMaterial = new THREE.MeshBasicMaterial({ map: bookTexture });
+    const book = new THREE.Mesh(bookGeometry, bookMaterial);
+    scene.add(book);
 
-            <div class="tab-content">
-                <div id="subjects-tab" class="tab-pane active">
-                    <div class="subjects-grid">
-                        <!-- Subject cards will be loaded here -->
-                    </div>
-                </div>
-                <div id="announcements-tab" class="tab-pane">
-                    <div class="announcements-list">
-                        <!-- Announcements will be loaded here -->
-                    </div>
-                </div>
-            </div>
-        </div>
-    </template>
+    // Pages (thin planes flipping)
+    const pageGeometry = new THREE.PlaneGeometry(39, 29);
+    const pageMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff, side: THREE.DoubleSide });
+    const pages = [];
 
-    <!-- Subject Details Template -->
-    <template id="subject-details-template">
-        <div class="subject-details-page">
-            <div class="back-button">
-                <a href="#" class="back-link" id="back-to-batch">
-                    <i class="fa-solid fa-arrow-left"></i> Back to Batch
-                </a>
-            </div>
-            
-            <!-- Quick Navigation -->
-            <div class="quick-nav">
-                <button class="quick-nav-btn active">
-                    <i class="fa-solid fa-house"></i>
-                    <span>PW App</span>
-                </button>
-                <a href="khazana/index.html" class="quick-nav-btn">
-                    <i class="fa-solid fa-box-archive"></i>
-                    <span>Khazana</span>
-                </a>
-                <a href="" target="_blank" class="quick-nav-btn">
-                    <i class="fa-brands fa-telegram"></i>
-                    <span>Telegram</span>
-                </a>
-            </div>
-            
-            <h1 class="subject-title skeleton-text"></h1>
-            
-            <div class="topics-grid">
-                <!-- Topic cards will be loaded here -->
-            </div>
-        </div>
-    </template>
+    for (let i = 0; i < 10; i++) {
+      const page = new THREE.Mesh(pageGeometry, pageMaterial);
+      page.position.z = -i * 0.1;
+      scene.add(page);
+      pages.push(page);
+    }
 
-    <!-- Contents Template -->
-    <template id="contents-template">
-        <div class="contents-page">
-            <div class="back-button">
-                <a href="#" class="back-link" id="back-to-subject">
-                    <i class="fa-solid fa-arrow-left"></i> Back to Subject
-                </a>
-            </div>
-            
-            <!-- Quick Navigation -->
-            <div class="quick-nav">
-                <button class="quick-nav-btn active">
-                    <i class="fa-solid fa-house"></i>
-                    <span>PW App</span>
-                </button>
-                <a href="khazana/index.html" class="quick-nav-btn">
-                    <i class="fa-solid fa-box-archive"></i>
-                    <span>Khazana</span>
-                </a>
-                <a href="" target="_blank" class="quick-nav-btn">
-                    <i class="fa-brands fa-telegram"></i>
-                    <span>Telegram</span>
-                </a>
-            </div>
-            
-            <h1 class="topic-title skeleton-text"></h1>
-            
-            <div class="content-tabs">
-                <button class="tab-btn active" data-tab="lectures">Lectures</button>
-                <button class="tab-btn" data-tab="notes">Notes</button>
-                <button class="tab-btn" data-tab="dpp">DPP PDF</button>
-                <button class="tab-btn" data-tab="solution">Solutions</button>
-            </div>
-            
-            <div class="tab-content">
-                <div id="lectures-tab" class="tab-pane active">
-                    <div class="lectures-grid content-grid">
-                        <!-- Lecture cards will be loaded here -->
-                    </div>
-                </div>
-                <div id="notes-tab" class="tab-pane">
-                    <div class="notes-grid content-grid">
-                        <!-- Notes cards will be loaded here -->
-                    </div>
-                </div>
-                <div id="dpp-tab" class="tab-pane">
-                    <div class="dpp-grid content-grid">
-                        <!-- DPP cards will be loaded here -->
-                    </div>
-                </div>
-                <div id="solution-tab" class="tab-pane">
-                    <div class="solutions-grid content-grid">
-                        <!-- Solution cards will be loaded here -->
-                    </div>
-                </div>
-            </div>
-        </div>
-    </template>
+    // Enhanced Complex Pattern
+    const particlesCount = 6000;
+    const particlesGeometry = new THREE.BufferGeometry();
+    const particlesMaterial = new THREE.PointsMaterial({ color: 0x448EE4, size: 0.8 });
 
-    <template id="batch-card-template">
-        <div class="batch-card">
-            <div class="batch-image skeleton-bg">
-                <img src="" alt="" class="lazy-image">
-                <button class="favorite-btn">
-                    <i class="fa-regular fa-heart"></i>
-                </button>
-            </div>
-            <div class="batch-content">
-                <div class="batch-tags">
-                    <span class="batch-tag language-tag skeleton-text"></span>
-                    <span class="batch-tag exam-tag skeleton-text"></span>
-                </div>
-                <h3 class="batch-title skeleton-text"></h3>
-                <p class="batch-subtitle skeleton-text"></p>
-                <div class="batch-footer">
-                    <span class="batch-date skeleton-text"></span>
-                    <a href="#" class="study-btn skeleton-btn">Let's Study</a>
-                </div>
-            </div>
-        </div>
-    </template>
+    const positions = new Float32Array(particlesCount * 3);
+    for (let i = 0; i < particlesCount * 3; i++) {
+      positions[i] = (Math.random() - 0.5) * 400;  // Larger space for spreading
+    }
 
-    <!-- Video Player Template -->
-    <template id="video-player-template">
-        <div class="video-player-container">
-            <div class="video-player-header">
-                <button class="close-video">
-                    <i class="fa-solid fa-times"></i>
-                </button>
-                <h2 class="video-title"></h2>
-            </div>
-            <div class="video-wrapper">
-                <video id="content-video" controls class="video-player">
-                    <source src="" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-            </div>
-        </div>
-    </template>
+    particlesGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
 
-    <!-- Toast Container -->
-    <div id="toast-container" class="toast-container"></div>
+    const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+    scene.add(particlesMesh);
 
-    <!-- Scripts -->
-    <script src="web-apps.js"></script>
-    <script src="khazana-integration.js"></script>
-    
+   
+    let pageFlipSpeed = 0.03;
+    let particlesRotationSpeed = 0.0015;
+
+    function animate() {
+      requestAnimationFrame(animate);
+
+      
+      pages.forEach((page, index) => {
+        page.rotation.y += pageFlipSpeed * (index + 1);
+        page.rotation.y %= Math.PI * 2;  // Loop the rotation
+      });
+
+      
+      book.rotation.y += 0.004;
+
+      particlesMesh.rotation.y += particlesRotationSpeed;
+      particlesMesh.rotation.x += particlesRotationSpeed / 2;
+
+     
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.render(scene, camera);
+    }
+
+    animate();
+  </script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"947e10930bc7ce85","version":"2025.4.0-1-g37f21b1","r":1,"token":"807bd724f4d0478fa02fb75831663179","serverTiming":{"name":{"cfExtPri":true,"cfEdge":true,"cfOrigin":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}}}' crossorigin="anonymous"></script>
 </body>
-</html> 
+</html>
